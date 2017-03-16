@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Message Board</title>
+  </head>
+  <body>
+    <h1>The Dojo Message Board</h1>
+    <hr>
+    <div>
+<!-- ERROR CHECK -->
+      <% if(typeof(errors) != "undefined") { %>
+        <% for (var i in errors) { %>
+          <h3><%= errors[i].message %></h3>
+        <% } %>
+      <%} else {%>
+    </div>
+        <form class="" action="/process" method="post">
+          <label for="name">Name:</label>
+          <input type="text" name="name" placeholder="Name">
+          <label for="name">Message:</label>
+          <textarea name="message" rows="8" cols="80" placeholder="Message"></textarea>
+          <input type="submit" name="submit" value="Post Message">
+        </form>
+        <hr>
+<!-- MESSAGE DISPLAY -->
+        <% for(var i in userdata) { %>
+          <h4>Name: <%= userdata[i].name %></h4>
+          <h4>Message: <%= userdata[i].message %></h4>
+<!-- COMMENT DISPLAY -->
+          <% for(var j of userdata[i]._comments) { %>
+            <!-- <%= userdata[i]%> -->
+            <h5>Name: <%= j.name %></h5>
+            <h5>Comment: <%= j.comment %></h5>
+          <% } %>
+
+            <form class="" action="/comment/<%= userdata[i]._id %>" method="post">
+              <label for="name">Name:</label>
+              <input type="text" name="name" placeholder="Name">
+              <label for="name">Comment:</label>
+              <textarea name="comment" rows="8" cols="80" placeholder="Message"></textarea>
+              <input type="submit" name="submit" value="Post Comment">
+            </form>
+        <% } %>
+      <% } %>
+  </body>
+</html>
